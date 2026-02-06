@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/data/projects";
 
@@ -11,12 +11,22 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"]
+  });
+
+  const imageY = useTransform(scrollYProgress, [0, 1], [-30, 30]);
+  const cardY = useTransform(scrollYProgress, [0, 0.5, 1], [60, 0, -20]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0.8]);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
+      ref={cardRef}
+      style={{ y: cardY, opacity: cardOpacity }}
+      initial={{ opacity: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
     >
       <Link
@@ -29,8 +39,9 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <motion.img
             src={project.thumbnail}
             alt={project.title}
-            className="w-full h-full object-cover img-zoom"
-            animate={{ scale: isHovered ? 1.08 : 1 }}
+            className="w-full h-full object-cover"
+            style={{ y: imageY }}
+            animate={{ scale: isHovered ? 1.08 : 1.02 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           />
         </div>
