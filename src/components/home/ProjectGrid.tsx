@@ -19,7 +19,7 @@ export function ProjectGrid() {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="inline-block text-sm uppercase tracking-[0.2em] text-primary mb-3"
+              className="inline-block text-[11px] uppercase tracking-[0.3em] text-primary mb-3"
             >
               Selected Work
             </motion.span>
@@ -38,20 +38,20 @@ export function ProjectGrid() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-muted-foreground max-w-md"
+            className="text-sm text-muted-foreground max-w-md"
           >
             A selection of projects showcasing video-to-3D conversion, motion graphics, and VFX work across various industries.
           </motion.p>
         </div>
 
-        {/* Project grid - Bento style */}
+        {/* Project grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
 
-        {/* See more prompt */}
+        {/* Footer note */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -59,7 +59,7 @@ export function ProjectGrid() {
           transition={{ delay: 0.3 }}
           className="text-center mt-16"
         >
-          <p className="text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             <span className="text-foreground font-medium">{projects.length} projects</span> showcased above.{" "}
             <span className="text-primary">More work available upon request.</span>
           </p>

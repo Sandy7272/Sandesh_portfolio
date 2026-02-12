@@ -1,13 +1,8 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, Download, Play } from "lucide-react";
+import { ArrowDown, Play, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const heroHeadlines = [
-  "I craft cinematic VFX & motion graphics — and turn product video into interactive 3D assets.",
-  "Building the future of 3D commerce with AI-powered video conversion.",
-  "VFX artist turning everyday video into immersive 3D experiences."
-];
+import { Link } from "react-router-dom";
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -18,10 +13,8 @@ export function HeroSection() {
   });
 
   const titleY = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const subtitleY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
-  const bgY = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   const scrollToWork = () => {
     document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
@@ -32,169 +25,129 @@ export function HeroSection() {
       ref={sectionRef}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* Animated background */}
-      <motion.div 
-        className="absolute inset-0 bg-gradient-mesh pointer-events-none"
-        style={{ y: bgY }}
-      />
+      {/* Background layers */}
+      <div className="absolute inset-0 bg-gradient-hero" />
+      <div className="absolute inset-0 starfield opacity-40" />
       
-      {/* Animated blobs */}
+      {/* Subtle glow orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div 
-          className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] rounded-full bg-primary/10 blur-3xl"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px]"
+          animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div 
-          className="absolute -bottom-1/4 -left-1/4 w-[500px] h-[500px] rounded-full bg-accent/10 blur-3xl"
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            rotate: [0, -90, 0],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-primary/5 blur-3xl animate-morph"
+          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px]"
+          animate={{ scale: [1.1, 1, 1.1], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
-
-      {/* Grid overlay */}
-      <div 
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(hsl(var(--foreground)) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px'
-        }}
-      />
 
       {/* Content */}
       <motion.div
         style={{ opacity, scale }}
-        className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20 text-center"
+        className="relative z-10 max-w-6xl mx-auto px-6 text-center"
       >
-        {/* Availability badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+        {/* Location / Time */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8"
+          className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-12"
         >
-          <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-          <span className="text-sm text-muted-foreground">Open to opportunities</span>
-        </motion.div>
+          India · Available Worldwide · {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+        </motion.p>
+
+        {/* Main headline — huge display type */}
+        <motion.h1
+          style={{ y: titleY }}
+          className="relative mb-6"
+        >
+          <motion.span
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="block text-[clamp(3.5rem,12vw,9rem)] font-bold leading-[0.9] tracking-tighter"
+          >
+            VFX
+          </motion.span>
+          <motion.span
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45, duration: 0.8 }}
+            className="block text-[clamp(3.5rem,12vw,9rem)] font-bold leading-[0.9] tracking-tighter"
+          >
+            <span className="text-gradient">ARTIST</span>
+          </motion.span>
+        </motion.h1>
 
         {/* Name */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          style={{ y: subtitleY }}
+          transition={{ delay: 0.6 }}
+          className="mb-8"
         >
-          <p className="text-sm md:text-base uppercase tracking-[0.3em] text-muted-foreground mb-4">
-            VFX Artist · 3D & Motion Graphics · Video→3D Researcher
+          <p className="text-lg md:text-xl font-medium tracking-wide">
+            Sandesh <span className="text-primary">"Sandy"</span> Gadakh
+          </p>
+          <p className="text-sm text-muted-foreground mt-2 max-w-xl mx-auto leading-relaxed">
+            I craft cinematic VFX & motion graphics — and turn product video into interactive 3D assets. 
+            Shipped <span className="text-foreground font-medium">150+ 3D models</span>, built hotel walkthroughs, 
+            and scaled a cloud processing pipeline at MetaShop AI.
           </p>
         </motion.div>
-
-        {/* Main headline */}
-        <motion.h1 
-          style={{ y: titleY }}
-          className="text-display-xl font-bold mb-8"
-        >
-          <motion.span
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.7 }}
-            className="block"
-          >
-            Sandesh{" "}
-            <span className="text-gradient">"Sandy"</span>{" "}
-            Gadakh
-          </motion.span>
-        </motion.h1>
-
-        {/* Subheadline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          style={{ y: subtitleY }}
-          className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-4"
-        >
-          {heroHeadlines[0]}
-        </motion.p>
-
-        {/* Value prop */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="text-base text-muted-foreground max-w-2xl mx-auto mb-10"
-        >
-          I lead video→3D research and production at MetaShop AI — shipped{" "}
-          <span className="text-foreground font-medium">150+ product models</span>, built hotel walkthroughs, 
-          and scaled a cloud processing pipeline.
-        </motion.p>
 
         {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
+          transition={{ delay: 0.75 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
         >
           <Button 
             size="lg" 
-            className="btn-glow bg-gradient-primary hover:opacity-90 transition-opacity text-primary-foreground px-8 py-6 text-base"
+            className="btn-glow bg-gradient-primary hover:opacity-90 transition-opacity text-primary-foreground px-8 py-6 text-sm tracking-wide uppercase"
             onClick={scrollToWork}
           >
             <Play className="mr-2 h-4 w-4" />
-            View Case Studies
+            Explore Work
           </Button>
           <Button 
             size="lg" 
             variant="outline" 
-            className="glass hover:bg-secondary/50 transition-colors px-8 py-6 text-base"
+            className="glass hover:bg-secondary/50 transition-colors px-8 py-6 text-sm tracking-wide uppercase"
             asChild
           >
-            <a href="/resume" target="_blank">
+            <Link to="/resume">
               <Download className="mr-2 h-4 w-4" />
-              Download Resume
-            </a>
+              Resume
+            </Link>
           </Button>
         </motion.div>
 
-        {/* Quick stats */}
+        {/* Quick stats row */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.9 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto"
+          className="flex flex-wrap items-center justify-center gap-8 md:gap-12 text-sm"
         >
           {[
-            { value: "6+", label: "Years Experience" },
-            { value: "154", label: "3D Products Shipped" },
-            { value: "3x", label: "Best Employee" },
-            { value: "3-4/day", label: "Models Processed" }
+            { value: "6+", label: "Years" },
+            { value: "154", label: "3D Models" },
+            { value: "3×", label: "Best Employee" },
+            { value: "3-4/day", label: "Output" }
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 + i * 0.1 }}
-              className="text-center p-4 rounded-xl glass"
+              className="text-center"
             >
-              <div className="text-2xl md:text-3xl font-bold text-gradient mb-1">
-                {stat.value}
-              </div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider">
-                {stat.label}
-              </div>
+              <div className="text-2xl font-bold text-gradient">{stat.value}</div>
+              <div className="text-xs text-muted-foreground uppercase tracking-widest mt-1">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -204,7 +157,7 @@ export function HeroSection() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
+        transition={{ delay: 1.3 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <motion.button
@@ -213,8 +166,8 @@ export function HeroSection() {
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <ArrowDown className="w-5 h-5" />
+          <span className="text-[10px] uppercase tracking-[0.3em]">Explore</span>
+          <ArrowDown className="w-4 h-4" />
         </motion.button>
       </motion.div>
     </section>
