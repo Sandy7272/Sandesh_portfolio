@@ -4,16 +4,29 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Moon, Sun } from "lucide-react";
 
 const navLinks = [
-  { name: "Work", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
+  { name: "Work", href: "/" },
+  { name: "Resume", href: "/resume" },
 ];
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return document.documentElement.classList.contains('dark') || 
+        window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return true;
+  });
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    // Set dark mode on mount
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,36 +59,47 @@ export function Navigation() {
       >
         <nav className="container mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20">
+            {/* Logo */}
             <Link to="/" className="group">
               <motion.span
-                className="text-lg font-semibold tracking-tight"
+                className="text-sm font-bold tracking-[0.15em] uppercase"
                 whileHover={{ opacity: 0.7 }}
               >
-                Sandeesh<span className="text-primary">.</span>
+                Sandy G<span className="text-primary">.</span>
               </motion.span>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`relative text-sm font-medium transition-colors link-underline ${
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-full ${
                     location.pathname === link.href
-                      ? "text-foreground"
+                      ? "text-primary"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  {link.name}
+                  <span className="text-muted-foreground/60">(</span>
+                  {" "}{link.name.toUpperCase()}{" "}
+                  <span className="text-muted-foreground/60">)</span>
                 </Link>
               ))}
+              
+              <Link
+                to="/contact"
+                className="ml-4 px-6 py-2 text-sm font-semibold tracking-wide uppercase border border-foreground/20 rounded-full hover:bg-foreground hover:text-background transition-all duration-300"
+              >
+                Contact Now
+              </Link>
+
               <button
                 onClick={toggleTheme}
-                className="p-2 rounded-full hover:bg-secondary transition-colors"
+                className="ml-3 p-2 rounded-full hover:bg-secondary transition-colors"
                 aria-label="Toggle theme"
               >
-                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+                {isDark ? <Sun size={16} /> : <Moon size={16} />}
               </button>
             </div>
 
@@ -118,17 +142,30 @@ export function Navigation() {
                         : "text-muted-foreground"
                     }`}
                   >
-                    {link.name}
+                    ( {link.name.toUpperCase()} )
                   </Link>
                 </motion.div>
               ))}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ delay: 0.3 }}
+              >
+                <Link
+                  to="/contact"
+                  className="text-2xl font-semibold text-primary"
+                >
+                  CONTACT NOW
+                </Link>
+              </motion.div>
               <motion.button
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.4 }}
                 onClick={toggleTheme}
-                className="p-3 rounded-full bg-secondary mt-8"
+                className="p-3 rounded-full bg-secondary mt-4"
               >
                 {isDark ? <Sun size={24} /> : <Moon size={24} />}
               </motion.button>
