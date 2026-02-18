@@ -18,15 +18,16 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Inter", "system-ui", "sans-serif"],
+        display: ["Syne", "system-ui", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
       fontSize: {
-        "display-hero": ["clamp(2.5rem, 6vw, 4.5rem)", { lineHeight: "1.08", letterSpacing: "-0.03em", fontWeight: "800" }],
-        "display-xl": ["clamp(2rem, 4vw, 3.25rem)", { lineHeight: "1.1", letterSpacing: "-0.025em", fontWeight: "700" }],
-        "display-lg": ["clamp(1.5rem, 3vw, 2.25rem)", { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "700" }],
-        "display-md": ["clamp(1.25rem, 2vw, 1.5rem)", { lineHeight: "1.3", letterSpacing: "-0.01em", fontWeight: "600" }],
-        "display-sm": ["clamp(1rem, 1.5vw, 1.125rem)", { lineHeight: "1.4", letterSpacing: "-0.01em", fontWeight: "600" }],
+        "hero": ["clamp(4rem, 12vw, 10rem)", { lineHeight: "0.95", letterSpacing: "-0.04em", fontWeight: "800" }],
+        "hero-sub": ["clamp(3rem, 9vw, 7.5rem)", { lineHeight: "0.95", letterSpacing: "-0.03em", fontWeight: "800" }],
+        "display-xl": ["clamp(2.5rem, 6vw, 4.5rem)", { lineHeight: "1.05", letterSpacing: "-0.03em", fontWeight: "700" }],
+        "display-lg": ["clamp(1.75rem, 4vw, 3rem)", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+        "display-md": ["clamp(1.25rem, 2.5vw, 1.75rem)", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "600" }],
+        "display-sm": ["clamp(1rem, 1.5vw, 1.25rem)", { lineHeight: "1.3", letterSpacing: "-0.01em", fontWeight: "600" }],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -81,6 +82,8 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "2xl": "1.25rem",
+        "3xl": "1.5rem",
       },
       keyframes: {
         "accordion-down": {
@@ -91,10 +94,15 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "marquee": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "marquee": "marquee 30s linear infinite",
       },
     },
   },

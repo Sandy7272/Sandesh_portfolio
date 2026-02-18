@@ -1,61 +1,88 @@
 import { motion } from "framer-motion";
-import { Download, ArrowUpRight } from "lucide-react";
+import { Mail, Linkedin, Github, Youtube, ArrowUpRight } from "lucide-react";
 
-const links = [
-  { label: "Email", href: "mailto:sandesh@example.com" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/" },
-  { label: "GitHub", href: "https://github.com/Sandy7272" },
-  { label: "YouTube", href: "https://youtube.com/@SandeshGadakh" },
+const socialLinks = [
+  { icon: Mail, label: "Email", detail: "sandesh@example.com", href: "mailto:sandesh@example.com" },
+  { icon: Linkedin, label: "LinkedIn", detail: "@sandeshgadakh", href: "https://linkedin.com/in/" },
+  { icon: Github, label: "GitHub", detail: "@Sandy7272", href: "https://github.com/Sandy7272" },
+  { icon: Youtube, label: "YouTube", detail: "@SandeshGadakh", href: "https://youtube.com/@SandeshGadakh" },
 ];
 
 export function ContactSection() {
   return (
-    <section id="contact" className="editorial-container section-padding scroll-mt-20">
-      <div className="divider mb-16" />
+    <section id="contact" className="section-container py-20 md:py-32 scroll-mt-20">
+      <div className="text-center mb-16">
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-6"
+        >
+          Need a creative technologist?
+        </motion.p>
 
-      <motion.h2
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="font-display text-display-xl mb-4"
+        >
+          Let's work
+        </motion.h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="font-display text-display-xl text-gradient"
+        >
+          together.
+        </motion.h2>
+      </div>
+
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="text-display-hero max-w-[800px] mb-10"
+        transition={{ delay: 0.2 }}
+        className="flex flex-wrap justify-center gap-4 mb-16"
       >
-        Let's build something exceptional.
-      </motion.h2>
+        <a
+          href="mailto:sandesh@example.com"
+          className="px-8 py-3.5 bg-primary text-primary-foreground rounded-full font-semibold text-sm hover:opacity-90 transition-opacity"
+        >
+          Message
+        </a>
+        <a
+          href="mailto:sandesh@example.com"
+          className="px-8 py-3.5 rounded-full border border-border text-foreground font-semibold text-sm hover:bg-secondary/50 transition-colors"
+        >
+          Discuss project
+        </a>
+      </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.1 }}
-        className="flex flex-wrap gap-4 mb-14"
+        transition={{ delay: 0.3 }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto"
       >
-        {links.map((link) => (
+        {socialLinks.map((link, i) => (
           <a
             key={link.label}
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 px-5 py-3 border border-foreground text-sm font-medium hover:bg-foreground hover:text-background transition-all duration-300"
+            className="group flex items-center gap-3 p-4 rounded-2xl glass-card hover:border-primary/20 transition-colors"
           >
-            {link.label}
-            <ArrowUpRight className="w-3.5 h-3.5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+            <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+            <div className="min-w-0">
+              <p className="text-sm font-semibold group-hover:text-primary transition-colors">{link.label}</p>
+              <p className="text-xs text-muted-foreground truncate">{link.detail}</p>
+            </div>
           </a>
         ))}
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.2 }}
-      >
-        <button
-          onClick={() => window.print()}
-          className="inline-flex items-center gap-2 px-7 py-3.5 bg-foreground text-background text-sm font-medium hover:opacity-80 transition-opacity"
-        >
-          <Download className="w-4 h-4" />
-          Download Resume
-        </button>
       </motion.div>
     </section>
   );

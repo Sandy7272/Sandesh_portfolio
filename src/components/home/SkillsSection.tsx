@@ -9,32 +9,29 @@ const techStack = {
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="editorial-container section-padding scroll-mt-20">
-      <div className="divider mb-16" />
-      <motion.p
+    <section id="skills" className="section-container py-20 md:py-28 scroll-mt-20">
+      <motion.h3
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-10"
+        className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-12"
       >
         Tech Stack
-      </motion.p>
+      </motion.h3>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
         {Object.entries(techStack).map(([category, items], i) => (
           <motion.div
             key={category}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.08, duration: 0.5 }}
+            transition={{ delay: i * 0.08 }}
           >
-            <h3 className="text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground mb-5">
-              {category}
-            </h3>
+            <h4 className="text-xs font-medium uppercase tracking-[0.15em] text-primary/70 mb-5">{category}</h4>
             <ul className="space-y-3">
               {items.map((item) => (
-                <li key={item} className="text-sm text-foreground/80">{item}</li>
+                <li key={item} className="text-sm text-foreground/70 hover:text-foreground transition-colors cursor-default">{item}</li>
               ))}
             </ul>
           </motion.div>
