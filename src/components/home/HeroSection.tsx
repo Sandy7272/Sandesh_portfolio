@@ -1,112 +1,119 @@
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Download, Mail } from "lucide-react";
+import { useEffect, useRef } from "react";
+
+function Particles() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const count = 30;
+    for (let i = 0; i < count; i++) {
+      const particle = document.createElement("div");
+      particle.className = "particle";
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDuration = `${8 + Math.random() * 12}s`;
+      particle.style.animationDelay = `${Math.random() * 10}s`;
+      particle.style.width = `${1 + Math.random() * 2}px`;
+      particle.style.height = particle.style.width;
+      container.appendChild(particle);
+    }
+    return () => { container.innerHTML = ""; };
+  }, []);
+
+  return <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none" />;
+}
 
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
-      {/* Background glow */}
+      <Particles />
+
+      {/* Background glows */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[150px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[120px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-primary/8 blur-[180px]" />
+        <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-accent/6 blur-[150px]" />
       </div>
 
       <div className="section-container relative z-10 w-full">
-        {/* Greeting */}
-        <motion.p
+        {/* Status badge */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-center text-sm md:text-base text-muted-foreground mb-8"
+          className="flex items-center gap-3 mb-8"
         >
-          🙏 Namaste! I am <span className="text-foreground font-semibold">Sandesh Gadakh</span> aka <span className="font-display font-bold text-foreground">SAN</span>
-        </motion.p>
-
-        {/* Massive Typography */}
-        <div className="text-center relative">
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="font-display text-hero text-foreground leading-[0.9]"
-          >
-            Creative
-          </motion.h1>
-
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.8 }}
-            className="flex items-center justify-center gap-4 md:gap-8"
-          >
-            <span className="font-display text-hero-sub italic text-muted-foreground/60 font-light">Visual</span>
-            <span className="font-display text-hero text-foreground">Designer</span>
-          </motion.div>
-
-          {/* Floating badges */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8, duration: 0.5 }}
-            className="absolute top-4 right-[5%] md:right-[10%] hidden md:block"
-          >
-            <div className="badge-float bg-primary/15 text-primary border-primary/20">
-              3D Artist
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.9, duration: 0.5 }}
-            className="absolute bottom-[30%] left-[2%] md:left-[8%] hidden md:block"
-          >
-            <div className="badge-float bg-accent/15 text-accent border-accent/20">
-              VFX Researcher
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1, duration: 0.5 }}
-            className="absolute bottom-[20%] right-[3%] md:right-[6%] hidden md:block"
-          >
-            <div className="badge-float bg-primary/10 text-primary/80 border-primary/15">
-              Motion Designer
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          className="flex items-center justify-center gap-8 md:gap-16 mt-10 md:mt-14"
-        >
-          <div className="flex items-baseline gap-1">
-            <span className="font-display text-4xl md:text-5xl font-bold text-foreground">4</span>
-            <span className="text-primary font-semibold text-lg">yrs+</span>
-            <span className="text-muted-foreground text-xs ml-2 hidden sm:inline">experience</span>
-          </div>
-          <div className="h-10 w-px bg-border" />
-          <div className="flex items-baseline gap-1">
-            <span className="font-display text-4xl md:text-5xl font-bold text-foreground">500</span>
-            <span className="text-primary font-semibold text-lg">+</span>
-            <span className="text-muted-foreground text-xs ml-2 hidden sm:inline">projects done</span>
-          </div>
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent" />
+          </span>
+          <span className="text-sm text-muted-foreground">Available for opportunities</span>
         </motion.div>
 
-        {/* Services bar */}
+        {/* Name */}
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95] mb-6"
+        >
+          Sandesh
+          <br />
+          <span className="text-gradient">Gadakh</span>
+        </motion.h1>
+
+        {/* Title */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="text-lg md:text-xl text-muted-foreground font-medium mb-6 max-w-2xl"
+        >
+          Operations Manager • AI-Native Creative Technologist • 3D Generalist
+        </motion.p>
+
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="text-base text-muted-foreground/80 max-w-xl mb-10 leading-relaxed"
+        >
+          Strategic professional with 4+ years experience across 3D production,
+          AI-powered creative workflows, motion graphics, and production systems.
+          <br className="hidden md:block" />
+          Currently building scalable video-to-3D pipelines at <span className="text-foreground font-medium">MetaShop AI</span>.
+        </motion.p>
+
+        {/* Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
-          className="flex items-center justify-center mt-10 md:mt-14"
+          transition={{ delay: 0.7 }}
+          className="flex flex-wrap items-center gap-4"
         >
-          <p className="text-xs md:text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground text-center">
-            3D Assets · Motion Graphics · VFX · Video-to-3D · Automation
-          </p>
+          <button
+            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+            className="px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+          >
+            View Projects
+          </button>
+          <a
+            href="/resume.pdf"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-border text-sm font-semibold hover:bg-secondary/50 transition-colors"
+          >
+            <Download className="w-4 h-4" />
+            Download Resume
+          </a>
+          <button
+            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-border text-sm font-semibold hover:bg-secondary/50 transition-colors"
+          >
+            <Mail className="w-4 h-4" />
+            Contact
+          </button>
         </motion.div>
       </div>
 
@@ -115,11 +122,11 @@ export function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}
-        onClick={() => document.getElementById("works-section")?.scrollIntoView({ behavior: "smooth" })}
-        className="absolute bottom-8 left-8 w-14 h-14 rounded-full border border-border flex items-center justify-center hover:bg-secondary/50 transition-colors"
+        onClick={() => document.getElementById("clients")?.scrollIntoView({ behavior: "smooth" })}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 w-10 h-16 rounded-full border border-border/50 flex items-center justify-center"
       >
-        <motion.div animate={{ y: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }}>
-          <ArrowDown className="w-5 h-5 text-muted-foreground" />
+        <motion.div animate={{ y: [0, 6, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+          <ArrowDown className="w-4 h-4 text-muted-foreground" />
         </motion.div>
       </motion.button>
     </section>

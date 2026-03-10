@@ -3,9 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { name: "Works", href: "#works-section" },
-  { name: "About", href: "#about-process-section" },
-  { name: "Skills", href: "#skills" },
+  { name: "Projects", href: "#projects" },
+  { name: "Expertise", href: "#expertise" },
+  { name: "Experience", href: "#experience" },
+  { name: "About", href: "#about" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -38,16 +39,16 @@ export function Navigation() {
       >
         <div className="section-container">
           <nav className="flex items-center justify-between h-16 md:h-20">
-            <button onClick={() => scrollTo("")} className="font-display font-bold text-sm tracking-wide uppercase">
-              Sandesh Gadakh
+            <button onClick={() => scrollTo("")} className="font-display font-bold text-sm tracking-wide">
+              SG<span className="text-primary">.</span>
             </button>
 
-            <div className="hidden md:flex items-center gap-10">
+            <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
                 <button
                   key={link.name}
                   onClick={() => scrollTo(link.href)}
-                  className="text-sm uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {link.name}
                 </button>
@@ -55,8 +56,8 @@ export function Navigation() {
             </div>
 
             <a
-              href="mailto:sandesh@example.com"
-              className="hidden md:inline-flex px-6 py-2.5 rounded-full border border-foreground/20 text-sm font-medium hover:bg-foreground hover:text-background transition-all"
+              href="mailto:gadakhsandesh@gmail.com"
+              className="hidden md:inline-flex px-5 py-2 rounded-full border border-border text-sm font-medium hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
             >
               Get in Touch
             </a>
@@ -95,8 +96,8 @@ export function Navigation() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -30 }}
                 transition={{ delay: 0.3 }}
-                href="mailto:sandesh@example.com"
-                className="mt-4 px-6 py-3 rounded-full border border-foreground/20 text-sm font-medium"
+                href="mailto:gadakhsandesh@gmail.com"
+                className="mt-4 px-6 py-3 rounded-full border border-border text-sm font-medium"
               >
                 Get in Touch
               </motion.a>

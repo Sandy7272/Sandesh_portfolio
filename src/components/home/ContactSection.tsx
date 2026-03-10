@@ -1,16 +1,21 @@
 import { motion } from "framer-motion";
-import { Mail, Linkedin, Github, Youtube, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Github, Youtube } from "lucide-react";
+
+const contactInfo = [
+  { icon: Mail, label: "Email", value: "gadakhsandesh@gmail.com", href: "mailto:gadakhsandesh@gmail.com" },
+  { icon: Phone, label: "Phone", value: "+91-7447337272", href: "tel:+917447337272" },
+  { icon: MapPin, label: "Location", value: "Pune, India", href: "#" },
+];
 
 const socialLinks = [
-  { icon: Mail, label: "Email", detail: "sandesh@example.com", href: "mailto:sandesh@example.com" },
-  { icon: Linkedin, label: "LinkedIn", detail: "@sandeshgadakh", href: "https://linkedin.com/in/" },
-  { icon: Github, label: "GitHub", detail: "@Sandy7272", href: "https://github.com/Sandy7272" },
-  { icon: Youtube, label: "YouTube", detail: "@SandeshGadakh", href: "https://youtube.com/@SandeshGadakh" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/" },
+  { icon: Github, label: "GitHub", href: "https://github.com/Sandy7272" },
+  { icon: Youtube, label: "YouTube", href: "https://youtube.com/@SandeshGadakh" },
 ];
 
 export function ContactSection() {
   return (
-    <section id="contact" className="section-container py-20 md:py-32 scroll-mt-20">
+    <section id="contact" className="section-container section-padding scroll-mt-20">
       <div className="text-center mb-16">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -18,7 +23,7 @@ export function ContactSection() {
           viewport={{ once: true }}
           className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-6"
         >
-          Need a creative technologist?
+          Let's Connect
         </motion.p>
 
         <motion.h2
@@ -27,7 +32,7 @@ export function ContactSection() {
           viewport={{ once: true }}
           className="font-display text-display-xl mb-4"
         >
-          Let's work
+          Ready to build
         </motion.h2>
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -36,51 +41,51 @@ export function ContactSection() {
           transition={{ delay: 0.1 }}
           className="font-display text-display-xl text-gradient"
         >
-          together.
+          something great?
         </motion.h2>
       </div>
 
+      {/* Contact cards */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.2 }}
-        className="flex flex-wrap justify-center gap-4 mb-16"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10"
       >
-        <a
-          href="mailto:sandesh@example.com"
-          className="px-8 py-3.5 bg-primary text-primary-foreground rounded-full font-semibold text-sm hover:opacity-90 transition-opacity"
-        >
-          Message
-        </a>
-        <a
-          href="mailto:sandesh@example.com"
-          className="px-8 py-3.5 rounded-full border border-border text-foreground font-semibold text-sm hover:bg-secondary/50 transition-colors"
-        >
-          Discuss project
-        </a>
+        {contactInfo.map((item) => (
+          <a
+            key={item.label}
+            href={item.href}
+            className="group flex flex-col items-center gap-3 p-6 rounded-2xl glass-card hover:border-primary/20 transition-colors text-center"
+          >
+            <item.icon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+            <div>
+              <p className="text-xs text-muted-foreground mb-1">{item.label}</p>
+              <p className="text-sm font-medium group-hover:text-primary transition-colors">{item.value}</p>
+            </div>
+          </a>
+        ))}
       </motion.div>
 
+      {/* Social links */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.3 }}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto"
+        className="flex items-center justify-center gap-4"
       >
-        {socialLinks.map((link, i) => (
+        {socialLinks.map((link) => (
           <a
             key={link.label}
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-3 p-4 rounded-2xl glass-card hover:border-primary/20 transition-colors"
+            className="w-12 h-12 rounded-full glass-card flex items-center justify-center hover:border-primary/30 hover:text-primary transition-all"
+            aria-label={link.label}
           >
-            <link.icon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-            <div className="min-w-0">
-              <p className="text-sm font-semibold group-hover:text-primary transition-colors">{link.label}</p>
-              <p className="text-xs text-muted-foreground truncate">{link.detail}</p>
-            </div>
+            <link.icon className="w-5 h-5" />
           </a>
         ))}
       </motion.div>

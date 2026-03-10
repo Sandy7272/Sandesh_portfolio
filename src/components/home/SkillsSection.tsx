@@ -9,12 +9,12 @@ const techStack = {
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="section-container py-20 md:py-28 scroll-mt-20">
+    <section id="skills" className="section-container section-padding scroll-mt-20">
       <motion.h3
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-12"
+        className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground mb-14"
       >
         Tech Stack
       </motion.h3>
@@ -31,7 +31,9 @@ export function SkillsSection() {
             <h4 className="text-xs font-medium uppercase tracking-[0.15em] text-primary/70 mb-5">{category}</h4>
             <ul className="space-y-3">
               {items.map((item) => (
-                <li key={item} className="text-sm text-foreground/70 hover:text-foreground transition-colors cursor-default">{item}</li>
+                <li key={item} className="text-sm text-foreground/70 hover:text-foreground transition-colors cursor-default">
+                  {item}
+                </li>
               ))}
             </ul>
           </motion.div>
