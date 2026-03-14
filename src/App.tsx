@@ -1,31 +1,46 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
-import Index from "./pages/Index";
-import ProjectDetail from "./pages/ProjectDetail";
-import NotFound from "./pages/NotFound";
+import { CustomCursor } from "./components/CustomCursor";
+import { Nav } from "./components/Nav";
+import { Hero } from "./components/Hero";
+import { Ticker } from "./components/Ticker";
+import { Clients } from "./components/Clients";
+import { About } from "./components/About";
+import { Experience } from "./components/Experience";
+import { ImpactBar } from "./components/ImpactBar";
+import { Projects } from "./components/Projects";
+import { Strengths } from "./components/Strengths";
+import { Services } from "./components/Services";
+import { Skills } from "./components/Skills";
+import { Tools } from "./components/Tools";
+import { Research } from "./components/Research";
+import { Testimonials } from "./components/Testimonials";
+import { YouTube } from "./components/YouTube";
+import { Contact } from "./components/Contact";
+import { Footer } from "./components/Footer";
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/project/:id" element={<ProjectDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AnimatePresence>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
-
-export default App;
+export default function App() {
+  return (
+    <>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
+      <CustomCursor />
+      <Nav />
+      <main id="main-content">
+        <Hero />
+        <Ticker />
+        <Clients />
+        <About />
+        <Experience />
+        <ImpactBar />
+        <Projects />
+        <Strengths />
+        <Services />
+        <Skills />
+        <Tools />
+        <Research />
+        <Testimonials />
+        <YouTube />
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  );
+}
